@@ -78,8 +78,8 @@ def handle_follow(event):
             text = "Please select an action:",
             actions = [
                 MessageTemplateAction(
-                    label = "Brief Self Introduction and Resume Link",
-                    text = "Brief Self Introduction and Resume Link"
+                    label = "Self Introduction",
+                    text = "Self Introduction"
                 ),
                 MessageTemplateAction(
                     label = "Photo",
