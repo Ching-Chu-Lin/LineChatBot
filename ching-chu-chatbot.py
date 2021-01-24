@@ -65,20 +65,20 @@ def get_action_menu_buttom_template():
 def handle_follow(event):
     reply_arr=[]
 
-    reply_arr.append(TextSendMessage(text="Hello! This is the Line chat bot of Ching-Chu, Lin!"))
+    reply_arr.append(TextSendMessage(text = "Hello! This is the Line chat bot of Ching-Chu, Lin!"))
     reply_arr.append(get_action_menu_buttom_template())
 
-    line_bot_api.reply_message( token, reply_arr )
+    line_bot_api.reply_message(event.reply_token, reply_arr)
     return
 
 
-@handler.add(MessageEvent, message=TextMessage)
+@handler.add(MessageEvent, message = TextMessage)
 def handle_echo_message(event):
-    message = TextSendMessage(text=event.message.text)
+    message = TextSendMessage(text = event.message.text)
     line_bot_api.reply_message(event.reply_token, message)
     return
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host = '0.0.0.0', port = port)
