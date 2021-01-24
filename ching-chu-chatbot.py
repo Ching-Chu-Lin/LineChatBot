@@ -36,7 +36,7 @@ def callback():
     return 'OK'
 
 
-action_menu_buttom_template =  
+#action_menu_buttom_template =  
 
 
 @handler.add(FollowEvent)
