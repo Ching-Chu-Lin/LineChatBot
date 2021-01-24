@@ -75,6 +75,7 @@ def handle_follow(event):
 def handle_echo_message(event):
     reply_arr=[]
     if event.message.text == "Self Introduction":
+        pass
 
     elif event.message.text == "Photo":
         message = ImageSendMessage(
