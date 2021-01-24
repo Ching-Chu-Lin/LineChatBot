@@ -11,6 +11,8 @@ from linebot.models import (
     TemplateSendMessage,
     ButtonsTemplate,
     MessageTemplateAction,
+    ImageSendMessage,
+    StickerSendMessage,
 )
 
 app = Flask(__name__)
