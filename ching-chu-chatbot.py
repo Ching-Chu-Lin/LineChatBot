@@ -3,7 +3,7 @@ import os
 from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, FollowEvent, TextMessage, TextSendMessage
+import linebot.models 
 
 app = Flask(__name__)
 
@@ -28,44 +28,45 @@ def callback():
     return 'OK'
 
 
-@handler.add(FollowEvent)
-def handle_follow(event):
-    message = TextSendMessage(text="Hello! This is the Line chat bot of Ching-Chu, Lin!\n")
-    line_bot_api.reply_message(event.reply_token, message)
+def get_action_menu_buttom_template():
+    return message = linebot.models.TemplateSendMessage(
+        alt_text = "Buttons template cannot be shown. Please check smartphone.",
 
-    message = TemplateSendMessage(
-        alt_text='Buttons template cannot be shown. Please check smartphone.',
-
-        template=ButtonsTemplate(
-            title='Menu',
-            text='Please select an action:',
-            actions=[
+        template = linebot.models.ButtonsTemplate(
+            title = "Actions Menu",
+            text = "Please select an action:",
+            actions = [
                 MessageTemplateAction(
-                    label='Resume Link',
-                    text='Resume Link'
+                    label = "Resume Link",
+                    text = "Resume Link"
                 ),
                 MessageTemplateAction(
-                    label='Photo',
-                    text='Photo'
+                    label = "Photo",
+                    text = "Photo"
                 ),
                 MessageTemplateAction(
-                    label='Stiker',
-                    text='Stiker'
+                    label = "Stiker",
+                    text = "Stiker"
                 ),
             ]
         )
     )
-    line_bot_api.reply_message(event.reply_token, message)
+
+
+@handler.add(linebot.models.FollowEvent)
+def handle_follow(event):
+    reply_arr=[]
+
+    reply_arr.append(linebot.models.TextSendMessage(text="Hello! This is the Line chat bot of Ching-Chu, Lin!"))
+    reply_arr.append( get_Action_Menu_Buttom_Template() )
+
+    line_bot_api.reply_message( token, reply_arr )
     return
 
 
-@handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    # webhook verify
-    if event.source.user_id == "Udeadbeefdeadbeefdeadbeefdeadbeef":
-        return
-
-    message = TextSendMessage(text=event.message.text)
+@handler.add(linebot.models.MessageEvent, message=linebot.models.TextMessage)
+def handle_echo_message(event):
+    message = linebot.models.TextSendMessage(text=event.message.text)
     line_bot_api.reply_message(event.reply_token, message)
     return
 
