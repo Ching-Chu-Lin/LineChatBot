@@ -36,70 +36,66 @@ def callback():
     return 'OK'
 
 
-#action_menu_buttom_template =  
+action_menu_buttom_template = TemplateSendMessage(
+    alt_text = "Buttons template cannot be shown. Please check smartphone.",
+    template = ButtonsTemplate(
+        title = "Actions Menu",
+        text = "Please select an action:",
+        actions = [
+            MessageTemplateAction(
+                label = "Self Introduction",
+                text = "Self Introduction"
+            ),
+            MessageTemplateAction(
+                label = "Photo",
+                text = "Photo"
+            ),
+            MessageTemplateAction(
+                label = "Stiker",
+                text = "Stiker"
+            ),
+        ]
+    )
+)
 
 
 @handler.add(FollowEvent)
 def handle_follow(event):
     reply_arr=[]
 
-    #reply_arr.append(TextSendMessage(text = "Hello! This is the Line chat bot of Ching-Chu, Lin!"))
-    #reply_arr.append(TextSendMessage(text = "Hello! This is the Line chat bot of Ching-Chu, Lin!2"))
-    '''
-    reply_arr.append(TemplateSendMessage(
-        alt_text = "Buttons template cannot be shown. Please check smartphone.",
-
-        template = ButtonsTemplate(
-            title = "Actions Menu",
-            text = "Please select an action:",
-            actions = [
-                MessageTemplateAction(
-                    label = "Brief Self Introduction and Resume Link",
-                    text = "Brief Self Introduction and Resume Link"
-                ),
-                MessageTemplateAction(
-                    label = "Photo",
-                    text = "Photo"
-                ),
-                MessageTemplateAction(
-                    label = "Stiker",
-                    text = "Stiker"
-                ),
-            ]
-        )
-    ))
+    greeting_text = "Hello! This is the Line chat bot channel of Ching-Chu, Lin!"
+    reply_arr.append(TextSendMessage(text = greeting_text))
+    reply_arr.append(action_menu_buttom_template)
 
     line_bot_api.reply_message(event.reply_token, reply_arr)
-    '''
-    message = TemplateSendMessage(
-        alt_text = "Buttons template cannot be shown. Please check smartphone.",
-        template = ButtonsTemplate(
-            title = "Actions Menu",
-            text = "Please select an action:",
-            actions = [
-                MessageTemplateAction(
-                    label = "Self Introduction",
-                    text = "Self Introduction"
-                ),
-                MessageTemplateAction(
-                    label = "Photo",
-                    text = "Photo"
-                ),
-                MessageTemplateAction(
-                    label = "Stiker",
-                    text = "Stiker"
-                ),
-            ]
-        )
-    )
-    line_bot_api.reply_message(event.reply_token, message)
     return
 
 
 @handler.add(MessageEvent, message = TextMessage)
 def handle_echo_message(event):
-    message = TextSendMessage(text = event.message.text)
-    line_bot_api.reply_message(event.reply_token, message)
+    reply_arr=[]
+    if event.message.text == "Self Introduction":
+
+    elif event.message.text == "Photo":
+        message = ImageSendMessage(
+            original_content_url='https://imgur.com/ZvCOf6r',
+            preview_image_url='https://imgur.com/ZvCOf6r'
+        )
+        reply_arr.append(message)
+
+    elif event.message.text == "Stiker":
+        message = StickerSendMessage(
+            package_id='11537',
+            sticker_id='52002738'
+        )
+        reply_arr.append(message)
+
+    else:
+        invalid_input_text = "Sorry! You can only choose (or enter) the options on Actions Menu!"
+        reply_arr.append(TextSendMessage(text = invalid_input_text))
+
+    reply_arr.append(action_menu_buttom_template)
+    line_bot_api.reply_message(event.reply_token, reply_arr)
     return
 
 
