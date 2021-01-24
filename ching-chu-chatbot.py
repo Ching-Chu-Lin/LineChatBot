@@ -43,8 +43,8 @@ def callback():
 def handle_follow(event):
     reply_arr=[]
 
-    reply_arr.append(TextSendMessage(text = "Hello! This is the Line chat bot of Ching-Chu, Lin!"))
-    reply_arr.append(TextSendMessage(text = "Hello! This is the Line chat bot of Ching-Chu, Lin!2"))
+    #reply_arr.append(TextSendMessage(text = "Hello! This is the Line chat bot of Ching-Chu, Lin!"))
+    #reply_arr.append(TextSendMessage(text = "Hello! This is the Line chat bot of Ching-Chu, Lin!2"))
     '''
     reply_arr.append(TemplateSendMessage(
         alt_text = "Buttons template cannot be shown. Please check smartphone.",
@@ -68,9 +68,31 @@ def handle_follow(event):
             ]
         )
     ))
-    '''
 
     line_bot_api.reply_message(event.reply_token, reply_arr)
+    '''
+    message = TemplateSendMessage(
+        alt_text = "Buttons template cannot be shown. Please check smartphone.",
+        template = ButtonsTemplate(
+            title = "Actions Menu",
+            text = "Please select an action:",
+            actions = [
+                MessageTemplateAction(
+                    label = "Brief Self Introduction and Resume Link",
+                    text = "Brief Self Introduction and Resume Link"
+                ),
+                MessageTemplateAction(
+                    label = "Photo",
+                    text = "Photo"
+                ),
+                MessageTemplateAction(
+                    label = "Stiker",
+                    text = "Stiker"
+                ),
+            ]
+        )
+    )
+    line_bot_api.reply_message(event.reply_token, message)
     return
 
 
