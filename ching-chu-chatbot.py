@@ -65,7 +65,7 @@ action_menu_buttom_template = TemplateSendMessage(
 def handle_follow(event):
     reply_arr=[]
 
-    greeting_text = "Hello! This is the Line chat bot channel of Ching-Chu, Lin!"
+    greeting_text = "Hello! This is the Line chat bot channel of Ching-Chu, Lin!\nYou can one of the options on Actions Menu!"
     reply_arr.append(TextSendMessage(text = greeting_text))
     reply_arr.append(action_menu_buttom_template)
 
@@ -81,8 +81,8 @@ def handle_echo_message(event):
 
     elif event.message.text == "Photo":
         message = ImageSendMessage(
-            original_content_url='https://imgur.com/ZvCOf6r',
-            preview_image_url='https://imgur.com/ZvCOf6r'
+            original_content_url='https://drive.google.com/file/d/1agNwtKl6OIodczPPqtjgyrDbdxsuO9io/view?usp=sharing',
+            preview_image_url='https://drive.google.com/file/d/1agNwtKl6OIodczPPqtjgyrDbdxsuO9io/view?usp=sharing'
         )
         reply_arr.append(message)
 
