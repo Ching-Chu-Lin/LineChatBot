@@ -3,7 +3,14 @@ import os
 from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
-import linebot.models 
+from linebot.models import (
+    FollowEvent,
+    MessageEvent,
+    TextSendMessage,
+    TemplateSendMessage,
+    ButtonsTemplate,
+    MessageTemplateAction,
+)
 
 app = Flask(__name__)
 
@@ -29,10 +36,10 @@ def callback():
 
 
 def get_action_menu_buttom_template():
-    return linebot.models.TemplateSendMessage(
+    return TemplateSendMessage(
         alt_text = "Buttons template cannot be shown. Please check smartphone.",
 
-        template = linebot.models.ButtonsTemplate(
+        template = ButtonsTemplate(
             title = "Actions Menu",
             text = "Please select an action:",
             actions = [
@@ -53,20 +60,20 @@ def get_action_menu_buttom_template():
     )
 
 
-@handler.add(linebot.models.FollowEvent)
+@handler.add(FollowEvent)
 def handle_follow(event):
     reply_arr=[]
 
-    reply_arr.append(linebot.models.TextSendMessage(text="Hello! This is the Line chat bot of Ching-Chu, Lin!"))
+    reply_arr.append(TextSendMessage(text="Hello! This is the Line chat bot of Ching-Chu, Lin!"))
     reply_arr.append(get_action_menu_buttom_template())
 
     line_bot_api.reply_message( token, reply_arr )
     return
 
 
-@handler.add(linebot.models.MessageEvent, message=linebot.models.TextMessage)
+@handler.add(MessageEvent, message=TextMessage)
 def handle_echo_message(event):
-    message = linebot.models.TextSendMessage(text=event.message.text)
+    message = TextSendMessage(text=event.message.text)
     line_bot_api.reply_message(event.reply_token, message)
     return
 
