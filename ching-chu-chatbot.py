@@ -28,6 +28,37 @@ def callback():
     return 'OK'
 
 
+@handler.add(FollowEvent)
+def handle_follow(event):
+    message = TextSendMessage(text="Hello! This is the Line chat bot of Ching-Chu, Lin!\n")
+    line_bot_api.reply_message(event.reply_token, message)
+
+    message = TemplateSendMessage(
+        alt_text='Buttons template cannot be shown. Please check smartphone.',
+
+        template=ButtonsTemplate(
+            title='Menu',
+            text='Please select an action:',
+            actions=[
+                MessageTemplateAction(
+                    label='Resume Link',
+                    text='Resume Link'
+                ),
+                MessageTemplateAction(
+                    label='Photo',
+                    text='Photo'
+                ),
+                MessageTemplateAction(
+                    label='Stiker',
+                    text='Stiker'
+                ),
+            ]
+        )
+    )
+    line_bot_api.reply_message(event.reply_token, message)
+    return
+
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     # webhook verify
