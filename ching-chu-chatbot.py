@@ -6,6 +6,7 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import (
     FollowEvent,
     MessageEvent,
+    TextMessage,
     TextSendMessage,
     TemplateSendMessage,
     ButtonsTemplate,
@@ -44,8 +45,8 @@ def get_action_menu_buttom_template():
             text = "Please select an action:",
             actions = [
                 MessageTemplateAction(
-                    label = "Resume Link",
-                    text = "Resume Link"
+                    label = "Brief Self Introduction and Resume Link",
+                    text = "Brief Self Introduction and Resume Link"
                 ),
                 MessageTemplateAction(
                     label = "Photo",
