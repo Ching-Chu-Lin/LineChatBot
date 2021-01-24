@@ -81,15 +81,15 @@ def handle_echo_message(event):
 
     elif event.message.text == "Photo":
         message = ImageSendMessage(
-            original_content_url='https://drive.google.com/file/d/1agNwtKl6OIodczPPqtjgyrDbdxsuO9io/view?usp=sharing',
-            preview_image_url='https://drive.google.com/file/d/1agNwtKl6OIodczPPqtjgyrDbdxsuO9io/view?usp=sharing'
+            original_content_url = "https://i.imgur.com/ZvCOf6r.jpg",
+            preview_image_url = "https://i.imgur.com/ZvCOf6r.jpg"
         )
         reply_arr.append(message)
 
     elif event.message.text == "Stiker":
         message = StickerSendMessage(
-            package_id='11537',
-            sticker_id='52002738'
+            package_id = "11537",
+            sticker_id = "52002738"
         )
         reply_arr.append(message)
 
