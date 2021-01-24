@@ -58,7 +58,7 @@ def handle_follow(event):
     reply_arr=[]
 
     reply_arr.append(linebot.models.TextSendMessage(text="Hello! This is the Line chat bot of Ching-Chu, Lin!"))
-    reply_arr.append( get_Action_Menu_Buttom_Template() )
+    reply_arr.append(get_action_menu_buttom_template())
 
     line_bot_api.reply_message( token, reply_arr )
     return
