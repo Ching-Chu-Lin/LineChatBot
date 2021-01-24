@@ -29,7 +29,7 @@ def callback():
 
 
 def get_action_menu_buttom_template():
-    return message = linebot.models.TemplateSendMessage(
+    return linebot.models.TemplateSendMessage(
         alt_text = "Buttons template cannot be shown. Please check smartphone.",
 
         template = linebot.models.ButtonsTemplate(
