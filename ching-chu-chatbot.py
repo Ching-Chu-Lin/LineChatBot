@@ -36,29 +36,28 @@ def callback():
     return 'OK'
 
 
-def get_action_menu_buttom_template():
-    return TemplateSendMessage(
-        alt_text = "Buttons template cannot be shown. Please check smartphone.",
+action_menu_buttom_template =  TemplateSendMessage(
+    alt_text = "Buttons template cannot be shown. Please check smartphone.",
 
-        template = ButtonsTemplate(
-            title = "Actions Menu",
-            text = "Please select an action:",
-            actions = [
-                MessageTemplateAction(
-                    label = "Brief Self Introduction and Resume Link",
-                    text = "Brief Self Introduction and Resume Link"
-                ),
-                MessageTemplateAction(
-                    label = "Photo",
-                    text = "Photo"
-                ),
-                MessageTemplateAction(
-                    label = "Stiker",
-                    text = "Stiker"
-                ),
-            ]
-        )
+    template = ButtonsTemplate(
+        title = "Actions Menu",
+        text = "Please select an action:",
+        actions = [
+            MessageTemplateAction(
+                label = "Brief Self Introduction and Resume Link",
+                text = "Brief Self Introduction and Resume Link"
+            ),
+            MessageTemplateAction(
+                label = "Photo",
+                text = "Photo"
+            ),
+            MessageTemplateAction(
+                label = "Stiker",
+                text = "Stiker"
+            ),
+        ]
     )
+)
 
 
 @handler.add(FollowEvent)
@@ -66,7 +65,7 @@ def handle_follow(event):
     reply_arr=[]
 
     reply_arr.append(TextSendMessage(text = "Hello! This is the Line chat bot of Ching-Chu, Lin!"))
-    reply_arr.append(get_action_menu_buttom_template())
+    reply_arr.append(action_menu_buttom_template)
 
     line_bot_api.reply_message(event.reply_token, reply_arr)
     return
