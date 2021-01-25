@@ -15,7 +15,7 @@ from linebot.models import (
     StickerSendMessage,
 
     ButtonsTemplate,
-    
+
     URITemplateAction,
     PostbackTemplateAction,
     MessageTemplateAction,
@@ -45,10 +45,10 @@ def callback():
     return 'OK'
 
 
-action_menu_buttom_template = TemplateSendMessage(
+main_menu_buttom_template = TemplateSendMessage(
     alt_text = "Buttons template cannot be shown. Please check smartphone.",
     template = ButtonsTemplate(
-        title = "Actions Menu",
+        title = "Main Menu",
         text = "Please select an action:",
         actions = [
             PostbackTemplateAction(
@@ -57,12 +57,12 @@ action_menu_buttom_template = TemplateSendMessage(
                 data = "action=BriefIntroduction"
             ),
             URIAction(
-                label = "GitHub Link",
-                uri = "https://github.com/Ching-Chu-Lin"
-            ),
-            URIAction(
                 label = "Resume Link",
                 uri = "https://drive.google.com/uc?export=download&id=1AB_XRvgKfKGKPj4BA8Tk6BIA32DhhPp_"
+            ),
+            URIAction(
+                label = "GitHub Link",
+                uri = "https://github.com/Ching-Chu-Lin"
             ),
             PostbackTemplateAction(
                 label = "Other Function",
@@ -90,9 +90,9 @@ other_function_buttom_template = TemplateSendMessage(
                 data = "action=Stiker"
             ),
             PostbackTemplateAction(
-                label = "Back To Action Menu",
-                displayText = "Back To Action Menu",
-                data = "action=BackToActionMenu"
+                label = "Back To Main Menu",
+                displayText = "Back To Main Menu",
+                data = "action=BackToMainMenu"
             ),
         ]
     )
@@ -103,9 +103,12 @@ other_function_buttom_template = TemplateSendMessage(
 def handle_follow(event):
     reply_arr=[]
 
-    greeting_text = "Hello! This is the Line chat bot channel of Ching-Chu, Lin!\nYou can one of the options on Actions Menu!"
+    greeting_text = (
+        "Hello! This is the Line chat bot channel of Ching-Chu, Lin!\n"
+        "You can choose one of the options on Main Menu!"
+    )
     reply_arr.append(TextSendMessage(text = greeting_text))
-    reply_arr.append(action_menu_buttom_template)
+    reply_arr.append(main_menu_buttom_template)
 
     line_bot_api.reply_message(event.reply_token, reply_arr)
     return
@@ -116,9 +119,30 @@ def handle_postback_from_buttom_menu(event):
     reply_arr=[]
 
     if event.postback.data == "action=BriefIntroduction":
-        brief_intro_text = "The Brief Introduction of Ching-Chu, Lin:\n"
+        brief_intro_text = (
+            "The Brief Introduction of Ching-Chu, Lin:\n"
+            "Majoring in Computer Science, I am expected to graduate from National Taiwan University (NTU) in 2021 June. "
+            "The average GPA in 2019 winter and 2020 summer semester is 4.12. "
+            "I had worked as undergraduate research assistant in Laboratory of Algorithm Research and Laboratory of Cyber-Physical System. "
+            "I am in the Wired Network Team in Network Administration and System Administration Program, "
+            "where the team in charge of the wired network in the building of the department. "
+            "I also work in NTU COOL (the course website organization of NTU) as AI team intern. "
+            "In course project, I had developed in both front-end and back-end. "
+            "I am experienced in Linux environment, Git, Machine Learning techniques, and MySQL. "
+            "The top 3 primary languages is C, Python and Java. "
+            "For more information, please refer to the Resume Link and Github Link in Main Menu! "
+        )
         reply_arr.append(TextSendMessage(text = brief_intro_text))
-        reply_arr.append(action_menu_buttom_template)
+
+        contact_info_text = (
+            "Please contact me if there is any question.\n"
+            "The Contact Information:\n"
+            "E-Mail: b06902111@ntu.edu.tw\n"
+            "Mobile Phone: 0909040070\n"
+        )
+        reply_arr.append(TextSendMessage(text = contact_info_text))
+
+        reply_arr.append(main_menu_buttom_template)
 
     elif event.postback.data == "action=OtherFunction":
         reply_arr.append(other_function_buttom_template)
@@ -130,7 +154,7 @@ def handle_postback_from_buttom_menu(event):
             preview_image_url = "https://i.imgur.com/ZvCOf6r.jpg"
         )
         reply_arr.append(message)
-        reply_arr.append(action_menu_buttom_template)
+        reply_arr.append(main_menu_buttom_template)
 
     elif event.postback.data == "action=Stiker":
         message = StickerSendMessage(
@@ -138,22 +162,22 @@ def handle_postback_from_buttom_menu(event):
             sticker_id = "52002738"
         )
         reply_arr.append(message)
-        reply_arr.append(action_menu_buttom_template)
+        reply_arr.append(main_menu_buttom_template)
 
-    elif event.postback.data == "action=BackToActionMenu":
-        reply_arr.append(action_menu_buttom_template)
+    elif event.postback.data == "action=BackToMainMenu":
+        reply_arr.append(main_menu_buttom_template)
 
     line_bot_api.reply_message(event.reply_token, reply_arr)
     return
 
 
-@handler.add(MessageEvent, message = TextMessage)
+@handler.add(MessageEvent)
 def handle_text_message(event):
     reply_arr=[]
 
-    invalid_input_text = "Sorry! You can only choose the options on Actions Menu!"
+    invalid_input_text = "Sorry! You can only choose the options on buttom template!"
     reply_arr.append(TextSendMessage(text = invalid_input_text))
-    reply_arr.append(action_menu_buttom_template)
+    reply_arr.append(main_menu_buttom_template)
 
     line_bot_api.reply_message(event.reply_token, reply_arr)
     return
