@@ -126,9 +126,6 @@ def handle_postback_from_buttom_menu(event):
         brief_intro_text = (
             "Majoring in Computer Science, I am expected to graduate from National Taiwan University (NTU) in 2021 June. "
             "The average GPA of 2019 winter and 2020 summer semester is 4.12. "
-        )
-        reply_arr.append(TextSendMessage(text = brief_intro_text))
-        brief_intro_text = (
             "I had worked as undergraduate research assistant in Laboratory of Algorithm Research and Laboratory of Cyber-Physical System. "
             "I am in the Wired Network Team in Network Administration and System Administration Program, "
             "where the team in charge of the wired network in the building of the department. "

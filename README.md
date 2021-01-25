@@ -10,11 +10,15 @@
 
 ## Line Chatbot Information
 
+Github Repository Link: https://github.com/Ching-Chu-Lin/LineChatBot
+
 Line Chatbot ID: `@902dikbc`
 
 QR code:
 
-![902dikbc](/Users/ching-chulin/intern/line/902dikbc.png)
+![](https://i.imgur.com/qYydm03.png)
+
+
 
 ## Features
 
