@@ -1,12 +1,6 @@
 # <center>Line Chatbot</center>
 
-<center> 林慶珠 Ching-Chu, Lin</center>
-
-<center> mobile: 0909040070 e-mail: b06902111@ntu.edu.tw </center>
-
-<center> Github Link: https://github.com/Ching-Chu-Lin </center>
-
-
+## Personal Information
 
 ## Line Chatbot Information
 
