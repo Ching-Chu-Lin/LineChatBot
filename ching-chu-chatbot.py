@@ -52,12 +52,12 @@ action_menu_buttom_template = TemplateSendMessage(
                 data = "action=BriefIntroduction"
             ),
             URIAction(
-                label='GitHub Link',
-                uri='http://example.com/'
+                label = "GitHub Link",
+                uri = "https://github.com/Ching-Chu-Lin"
             ),
             URIAction(
-                label='GitHub Link',
-                uri='http://example.com/'
+                label = "Resume Link",
+                uri = "https://drive.google.com/uc?export=download&id=1AB_XRvgKfKGKPj4BA8Tk6BIA32DhhPp_"
             ),
             PostbackTemplateAction(
                 label = "Other Function",
