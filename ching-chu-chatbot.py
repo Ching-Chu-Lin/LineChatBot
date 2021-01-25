@@ -10,11 +10,12 @@ from linebot.models import (
     TextSendMessage,
     TemplateSendMessage,
     ButtonsTemplate,
-    MessageTemplateAction,
     ImageSendMessage,
     StickerSendMessage,
     URITemplateAction,
-    PostbackTemplateAction
+    PostbackTemplateAction,
+    MessageTemplateAction,
+    URIAction,
 )
 
 app = Flask(__name__)
