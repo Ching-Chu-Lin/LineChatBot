@@ -120,7 +120,7 @@ def handle_postback_from_buttom_menu(event):
 
     if event.postback.data == "action=BriefIntroduction":
         brief_intro_text = (
-            "The Brief Introduction of Ching-Chu, Lin:\n"
+            "The Brief Introduction of Ching-Chu, Lin:"
         )
         reply_arr.append(TextSendMessage(text = brief_intro_text))
         brief_intro_text = (
