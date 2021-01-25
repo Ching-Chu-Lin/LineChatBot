@@ -13,6 +13,8 @@ from linebot.models import (
     MessageTemplateAction,
     ImageSendMessage,
     StickerSendMessage,
+    URITemplateAction,
+    PostbackTemplateAction
 )
 
 app = Flask(__name__)
@@ -44,17 +46,48 @@ action_menu_buttom_template = TemplateSendMessage(
         title = "Actions Menu",
         text = "Please select an action:",
         actions = [
-            MessageTemplateAction(
-                label = "Self Introduction",
-                text = "Self Introduction"
+            PostbackTemplateAction(
+                label = "Brief Introduction",
+                displayText = "Brief Introduction",
+                data = "action=BriefIntroduction"
             ),
-            MessageTemplateAction(
+            URIAction(
+                label='GitHub Link',
+                uri='http://example.com/'
+            ),
+            URIAction(
+                label='GitHub Link',
+                uri='http://example.com/'
+            ),
+            PostbackTemplateAction(
+                label = "Other Function",
+                displayText = "Other Function",
+                data = "action=OtherFunction"
+            ),
+        ]
+    )
+)
+
+other_function_buttom_template = TemplateSendMessage(
+    alt_text = "Buttons template cannot be shown. Please check smartphone.",
+    template = ButtonsTemplate(
+        title = "Other Functinos",
+        text = "Please select an action:",
+        actions = [
+            PostbackTemplateAction(
                 label = "Photo",
-                text = "Photo"
+                displayText = "Photo",
+                data = "action=Photo"
             ),
-            MessageTemplateAction(
+            PostbackTemplateAction(
                 label = "Stiker",
-                text = "Stiker"
+                displayText = "Stiker",
+                data = "action=Stiker"
+            ),
+            PostbackTemplateAction(
+                label = "Back To Action Menu",
+                displayText = "Back To Action Menu",
+                data = "action=BackToActionMenu"
             ),
         ]
     )
@@ -71,33 +104,52 @@ def handle_follow(event):
 
     line_bot_api.reply_message(event.reply_token, reply_arr)
     return
+    
 
-
-@handler.add(MessageEvent, message = TextMessage)
-def handle_echo_message(event):
+@handler.add(PostbackEvent)
+def handle_postback_from_buttom_menu(event):
     reply_arr=[]
-    if event.message.text == "Self Introduction":
-        pass
 
-    elif event.message.text == "Photo":
+    if event.postback.data == "action=BriefIntroduction":
+        brief_intro_text = "The Brief Introduction of Ching-Chu, Lin:\n"
+        reply_arr.append(TextSendMessage(text = brief_intro_text))
+        reply_arr.append(action_menu_buttom_template)
+
+    elif event.postback.data == "action=OtherFunction":
+        reply_arr.append(other_function_buttom_template)
+
+    
+    if event.postback.data == "action=Photo":
         message = ImageSendMessage(
             original_content_url = "https://i.imgur.com/ZvCOf6r.jpg",
             preview_image_url = "https://i.imgur.com/ZvCOf6r.jpg"
         )
         reply_arr.append(message)
+        reply_arr.append(action_menu_buttom_template)
 
-    elif event.message.text == "Stiker":
+    elif event.postback.data == "action=Stiker":
         message = StickerSendMessage(
             package_id = "11537",
             sticker_id = "52002738"
         )
         reply_arr.append(message)
+        reply_arr.append(action_menu_buttom_template)
 
-    else:
-        invalid_input_text = "Sorry! You can only choose (or enter) the options on Actions Menu!"
-        reply_arr.append(TextSendMessage(text = invalid_input_text))
+    elif event.postback.data == "action=BackToActionMenu":
+        reply_arr.append(action_menu_buttom_template)
 
+    line_bot_api.reply_message(event.reply_token, reply_arr)
+    return
+
+
+@handler.add(MessageEvent, message = TextMessage)
+def handle_text_message(event):
+    reply_arr=[]
+
+    invalid_input_text = "Sorry! You can only choose the options on Actions Menu!"
+    reply_arr.append(TextSendMessage(text = invalid_input_text))
     reply_arr.append(action_menu_buttom_template)
+
     line_bot_api.reply_message(event.reply_token, reply_arr)
     return
 
