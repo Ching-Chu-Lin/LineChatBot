@@ -121,8 +121,11 @@ def handle_postback_from_buttom_menu(event):
     if event.postback.data == "action=BriefIntroduction":
         brief_intro_text = (
             "The Brief Introduction of Ching-Chu, Lin:\n"
+        )
+        reply_arr.append(TextSendMessage(text = brief_intro_text))
+        brief_intro_text = (
             "Majoring in Computer Science, I am expected to graduate from National Taiwan University (NTU) in 2021 June. "
-            "The average GPA in 2019 winter and 2020 summer semester is 4.12. "
+            "The average GPA of 2019 winter and 2020 summer semester is 4.12. "
         )
         reply_arr.append(TextSendMessage(text = brief_intro_text))
         brief_intro_text = (
@@ -133,9 +136,9 @@ def handle_postback_from_buttom_menu(event):
         )
         reply_arr.append(TextSendMessage(text = brief_intro_text))
         brief_intro_text = (
-            "In course project, I had developed in both front-end and back-end. "
+            "In course project, I had developed applications in both front-end and back-end. "
+            "My top 3 primary languages are C, Python and Java. "
             "I am experienced in Linux environment, Git, Machine Learning techniques, and MySQL. "
-            "The top 3 primary languages is C, Python and Java. "
             "For more information, please refer to the Resume Link and Github Link in Main Menu! "
         )
         reply_arr.append(TextSendMessage(text = brief_intro_text))
