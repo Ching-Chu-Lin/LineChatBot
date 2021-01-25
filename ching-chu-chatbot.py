@@ -76,7 +76,7 @@ main_menu_buttom_template = TemplateSendMessage(
 other_function_buttom_template = TemplateSendMessage(
     alt_text = "Buttons template cannot be shown. Please check smartphone.",
     template = ButtonsTemplate(
-        title = "Other Functinos",
+        title = "Other Function Menu",
         text = "Please select an action:",
         actions = [
             PostbackTemplateAction(
@@ -123,10 +123,16 @@ def handle_postback_from_buttom_menu(event):
             "The Brief Introduction of Ching-Chu, Lin:\n"
             "Majoring in Computer Science, I am expected to graduate from National Taiwan University (NTU) in 2021 June. "
             "The average GPA in 2019 winter and 2020 summer semester is 4.12. "
+        )
+        reply_arr.append(TextSendMessage(text = brief_intro_text))
+        brief_intro_text = (
             "I had worked as undergraduate research assistant in Laboratory of Algorithm Research and Laboratory of Cyber-Physical System. "
             "I am in the Wired Network Team in Network Administration and System Administration Program, "
             "where the team in charge of the wired network in the building of the department. "
             "I also work in NTU COOL (the course website organization of NTU) as AI team intern. "
+        )
+        reply_arr.append(TextSendMessage(text = brief_intro_text))
+        brief_intro_text = (
             "In course project, I had developed in both front-end and back-end. "
             "I am experienced in Linux environment, Git, Machine Learning techniques, and MySQL. "
             "The top 3 primary languages is C, Python and Java. "
@@ -138,7 +144,7 @@ def handle_postback_from_buttom_menu(event):
             "Please contact me if there is any question.\n"
             "The Contact Information:\n"
             "E-Mail: b06902111@ntu.edu.tw\n"
-            "Mobile Phone: 0909040070\n"
+            "Mobile Phone: 0909040070"
         )
         reply_arr.append(TextSendMessage(text = contact_info_text))
 
@@ -150,8 +156,8 @@ def handle_postback_from_buttom_menu(event):
     
     if event.postback.data == "action=Photo":
         message = ImageSendMessage(
-            original_content_url = "https://i.imgur.com/ZvCOf6r.jpg",
-            preview_image_url = "https://i.imgur.com/ZvCOf6r.jpg"
+            original_content_url = "https://drive.google.com/uc?export=view&id=1K1nBXXS6PUqa01oXvuP30D6qOJgrX98n",
+            preview_image_url = "https://drive.google.com/uc?export=view&id=1K1nBXXS6PUqa01oXvuP30D6qOJgrX98n"
         )
         reply_arr.append(message)
         reply_arr.append(main_menu_buttom_template)
